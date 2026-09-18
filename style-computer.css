@@ -1,0 +1,134 @@
+/* ============================================================
+   to-do-list · style-computer.css
+   电脑 UI：桌面布局 —— 左侧导航栏 + 右侧任务区
+   判定：宽度 ≥768px（与手机 UI 按宽度二选一）
+   ============================================================ */
+
+@media (min-width: 768px) {
+  /* 只显示电脑 UI */
+  .phone-app { display: none; }
+  .desktop-app { display: flex; }
+
+  /* ===== 骨架 ===== */
+  .desktop-app {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    height: 100dvh;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ===== 左侧导航栏 ===== */
+  .side {
+    flex: none;
+    width: 236px;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 14px 18px;
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    backdrop-filter: blur(24px) saturate(160%);
+    border-right: 1px solid var(--side-border);
+  }
+  .side-head { padding: 0 10px 22px; }
+  .side-logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; letter-spacing: .2px; }
+  .side-date { margin-top: 9px; font-size: 12.5px; color: var(--muted); }
+
+  .side-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+  .side-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--muted);
+    transition: background .15s, color .15s;
+    text-align: left;
+  }
+  .side-item svg { width: 18px; height: 18px; flex: none; }
+  .side-item:hover { background: var(--hover); color: var(--text); }
+  .side-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .side-item .n {
+    margin-left: auto;
+    min-width: 18px; height: 18px;
+    padding: 0 5px;
+    border-radius: 99px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: center;
+  }
+  .side-item .n.hide { display: none; }
+  .side-item:not(.active) .n { background: var(--faint); color: var(--muted); }
+
+  .side-foot {
+    padding: 16px 12px 0;
+    border-top: 1px solid var(--side-border);
+    font-size: 11.5px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ===== 右侧主区 ===== */
+  .d-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .d-top {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 28px 40px 16px;
+  }
+  .d-title { font-size: 25px; font-weight: 700; letter-spacing: .2px; }
+  .d-sub { display: block; margin-top: 5px; font-size: 13px; color: var(--muted); }
+  .d-actions { display: flex; align-items: center; gap: 10px; flex: none; }
+
+  .d-body {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    max-width: 760px;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  .d-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 0 48px;
+  }
+
+  /* ===== 设置面板：居中弹窗（基础样式在 style-public.css） ===== */
+  .settings {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 21;
+    width: 360px;
+    padding: 22px;
+    border-radius: 20px;
+    background: var(--card);
+    box-shadow: 0 24px 64px -16px rgba(0, 0, 0, .35);
+    display: none;
+  }
+  .settings.show { display: block; animation: setIn .22s cubic-bezier(.2, .7, .2, 1); }
+  @keyframes setIn { from { opacity: 0; transform: translate(-50%, -48%) scale(.96); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+}
